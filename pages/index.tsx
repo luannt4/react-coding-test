@@ -31,9 +31,9 @@ const Home = () => {
    };*/
 
     /*This is to be completed by only using React references*/
-    const textInput = React.createRef();
+    const textInput = useRef<HTMLInputElement>(null);
     const onChange = () => {
-        DynamicFunc.current(textInput.current.value);
+        DynamicFunc.current(textInput.current?.value);
     };
 
   return (
