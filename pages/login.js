@@ -24,7 +24,6 @@ export default function Login() {
     fireAuth
       .signInWithEmailAndPassword(email, password)
       .then((result) => {
-        console.log(result);
         Router.push("/");
       })
       .catch((err) => {

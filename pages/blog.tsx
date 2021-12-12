@@ -22,7 +22,6 @@ export async function getServerSideProps() {
 }
 
 const BlockModal = (result) => {
-    console.log(result);
     return (
         <div className={styles.PostPage} >
             <Box className={'card-img-containerdetail'} mb={5}>
@@ -96,7 +95,7 @@ const Blogs = (props) => {
                                 dangerouslySetInnerHTML={{
                                     __html: `${post.Description.substring(0, 100)}...`,
                                 }}
-                            ></p>git 
+                            ></p>git
                         </Box>
                     </Box >
                 ))}
@@ -117,8 +116,6 @@ const Blogs = (props) => {
                 </Modal.Body>
 
             </Modal>
-
-
 
         </div>
 

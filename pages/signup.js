@@ -25,7 +25,6 @@ export default function Signup() {
     fireAuth
       .createUserWithEmailAndPassword(email, password)
       .then((result) => {
-        console.log(result);
         Router.push("/");
       })
       .catch((err) => {

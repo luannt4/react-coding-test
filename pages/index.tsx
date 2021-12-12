@@ -32,8 +32,6 @@ const Home = ({ posts }) => {
 
 
 
-
-
     return (
         <div className={styles.container}>
             <Head>
