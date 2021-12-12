@@ -1,17 +1,10 @@
 import Head from "next/head";
-import React, { useRef, createRef  } from 'react';
+import Router from "next/router";
+import React, { useRef, createRef, useState, useEffect  } from 'react';
 import styles from "../styles/Home.module.css";
 import DynamicText from "../components/DynamicText";
-import { Container } from '@chakra-ui/react'
-import { Box, Input, Stack   } from '@chakra-ui/react'
-
-import {
-    FormControl,
-    FormLabel,
-    FormErrorMessage,
-    FormHelperText,
-} from '@chakra-ui/react'
-import {useState} from "react";
+import { Box, Input, FormControl ,Container, Button, Flex, Spacer  } from '@chakra-ui/react';
+import firebaseDb, { fireAuth } from "../lib/firebase";
 
 const Home = () => {
     /*UseRef Hook In React*/
@@ -25,7 +18,6 @@ const Home = () => {
     /* const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
        changeValue(e.target.value);
    };
-
    const changeValue = (newValue) => {
        setValue(newValue);
    };*/
@@ -36,28 +28,61 @@ const Home = () => {
         DynamicFunc.current(textInput.current?.value);
     };
 
-  return (
-    <div className={styles.container}>
-      <Head>
-        <title>Coding Test</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+    const [user, setUser] = useState({});
+    //const { authUser, loading, signOut } = useAuth();
+    useEffect(() => {
+        fireAuth.onAuthStateChanged((user) => {
+            if (user) {
+                console.log("user found");
+                setUser(user);
+            } else {
+                console.log("no user");
+                setUser(null);
+            }
+        });
+    }, []);
 
-      <Container  maxW='container.xl' className={styles.main}>
-          <Box p={15}
-               shadow='md'
-               width='400px'
-               borderWidth='1px'>
-              <FormControl id='email'>
-                  <DynamicText  childFunc={DynamicFunc} value = {value}/>
-                  <Input size='md' placeholder='Basic usage' onChange={onChange} ref={textInput} />
+    const onLogout = () => {
+        fireAuth.signOut();
+    };
 
-              </FormControl>
-          </Box>
+    useEffect(() => {
+        !user && Router.push("/login");
+    }, [user]);
+  console.log('user',user)
+    return (
+        <div className={styles.container}>
+            <Head>
+                <title>Coding Test</title>
+                <link rel="icon" href="/favicon.ico" />
+            </Head>
 
-      </Container>
-    </div>
-  );
+            <Container  maxW='container.xl' className={styles.main}>git
+                <Flex width='500px' justify='flex-end' align='center'>
+                    <Box p='2'>
+                        { user && <div>Wellcome </div> }
+                    </Box>
+                    <Box p='2'>
+                        <Button bg='tomato' color='white' onClick={() => onLogout()}>
+                            Logout
+                        </Button>
+                    </Box>
+                </Flex>
+
+                <Box p={15}
+                     shadow='md'
+                     width='500px'
+                     borderWidth='1px'>
+                    <FormControl id='email'>
+                        <DynamicText  childFunc={DynamicFunc} value = {value}/>
+                        <Input size='md' placeholder='Basic usage' onChange={onChange} ref={textInput} />
+
+                    </FormControl>
+                </Box>
+
+            </Container>
+        </div>
+    );
 };
 
 export default Home;
