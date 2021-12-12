@@ -17,6 +17,7 @@ a {
 .card-img-container {
   max-width: 300px;
   position: relative;
+  cursor: pointer;
 }
 .card-img-container:after {
   content: '';

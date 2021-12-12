@@ -78,7 +78,7 @@ const Navigation = () => {
                     direction={'row'}
                     spacing={6}>
                     <Box p='2'>
-                       git 
+                       git
                     </Box>
                     <Box p='2'>
                         <Button bg='tomato' color='white' onClick={() => onLogout()}>
