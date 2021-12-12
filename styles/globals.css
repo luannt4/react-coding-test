@@ -14,3 +14,27 @@ a {
 * {
   box-sizing: border-box;
 }
+.card-img-container {
+  max-width: 300px;
+  position: relative;
+}
+.card-img-container:after {
+  content: '';
+  display: block;
+  height: 0;
+  width: 100%;
+  padding-bottom: 67%;
+}
+.card-image {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  border: 0;
+  width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  font-family: 'object-fit: contain;';
+}

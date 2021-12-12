@@ -4,9 +4,11 @@ import React, { useRef, createRef, useState, useEffect  } from 'react';
 import styles from "../styles/Home.module.css";
 import DynamicText from "../components/DynamicText";
 import { Box, Input, FormControl ,Container, Button, Flex, Spacer  } from '@chakra-ui/react';
-import firebaseDb, { fireAuth } from "../lib/firebase";
+import { fireAuth, getPosts } from "../lib/firebase";
+import Navigation from "../components/Navigation";
 
-const Home = () => {
+const Home = ({ posts }) => {
+
     /*UseRef Hook In React*/
     const DynamicFunc = React.useRef(null);
     /*const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -28,47 +30,18 @@ const Home = () => {
         DynamicFunc.current(textInput.current?.value);
     };
 
-    const [user, setUser] = useState({});
-    //const { authUser, loading, signOut } = useAuth();
-    useEffect(() => {
-        fireAuth.onAuthStateChanged((user) => {
-            if (user) {
-                console.log("user found");
-                setUser(user);
-            } else {
-                console.log("no user");
-                setUser(null);
-            }
-        });
-    }, []);
 
-    const onLogout = () => {
-        fireAuth.signOut();
-    };
 
-    useEffect(() => {
-        !user && Router.push("/login");
-    }, [user]);
-  console.log('user',user)
+
+
     return (
         <div className={styles.container}>
             <Head>
                 <title>Coding Test</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-
-            <Container  maxW='container.xl' className={styles.main}>git
-                <Flex width='500px' justify='flex-end' align='center'>
-                    <Box p='2'>
-                        { user && <div>Wellcome </div> }
-                    </Box>
-                    <Box p='2'>
-                        <Button bg='tomato' color='white' onClick={() => onLogout()}>
-                            Logout
-                        </Button>
-                    </Box>
-                </Flex>
-
+            <Navigation/>
+            <Container  maxW='container.xl' className={styles.main}>
                 <Box p={15}
                      shadow='md'
                      width='500px'
@@ -81,6 +54,7 @@ const Home = () => {
                 </Box>
 
             </Container>
+
         </div>
     );
 };
