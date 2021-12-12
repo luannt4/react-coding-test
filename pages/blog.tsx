@@ -4,6 +4,7 @@ import { Box, Heading, Text ,Container, Stack, Flex, Grid,  Image  } from '@chak
 import {getPosts} from "../lib/firebase";
 import Head from "next/head";
 import Navigation from "../components/Navigation";
+import { Link } from '@chakra-ui/react';
 
 export async function getServerSideProps() {
     const posts = await getPosts();
@@ -30,13 +31,18 @@ const Blogs = ({ posts }) => {
                 {posts.map((post) => (
                     <Box  key={post.slug} borderWidth='1px' borderRadius='lg' overflow='hidden'>
                         <div className={'card-img-container'}>
-                            <Image className={'card-image'} src={post.ImageUrl} alt={post.Title} />
+                            <Link href={`blog/${post.Id - 1}`} isExternal>
+                                <Image className={'card-image'} src={post.ImageUrl} alt={post.Title} />
+                            </Link>
                         </div>
 
                         <Box  p={5}>
                             <Text color='gray.500'>{post.Contents}</Text>
                             <Text mb={2} fontSize="xl" fontWeight="semibold" lineHeight="short">
-                                {post.Title}
+                                <Link href={`blog/${post.Id - 1}`} isExternal>
+                                    {post.Title}
+                                </Link>
+
                             </Text>
 
                             <p
